@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View, Alert } from 'react-native'
+import { StyleSheet, Text, View, Alert,ScrollView ,Pressable,Image,TextInput,} from 'react-native'
 import React,{useEffect,useState} from 'react'
-import * as location from 'expo-location'
+import * as Location from 'expo-location'
+import { MaterialIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 const Homescreen = () => {
     const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
         "we are loading your location"
@@ -48,14 +50,14 @@ const Homescreen = () => {
             );
           }
           const { coords } = await Location.getCurrentPositionAsync();
-           console.log(coords)
+        //    console.log(coords)
           if (coords) {
             const { latitude, longitude } = coords;
             let response = await Location.reverseGeocodeAsync({
                 latitude,
                 longitude,
               });
-               console.log(response)
+            //    console.log(response)
               for (let item of response) {
                 let address = `${item.name} ${item.city} ${item.postalCode}`;
                 setdisplayCurrentAddress(address);
@@ -63,9 +65,86 @@ const Homescreen = () => {
           }
       }
   return (
-    <View>
-      <Text>Homescreen</Text>
-    </View>
+    <>
+      <ScrollView
+        style={{ backgroundColor: "#F0F0F0", flex: 1, marginTop: 50 }}
+      >
+        {/* Location and Profile */}
+        <View
+          style={{ flexDirection: "row", alignItems: "center", padding: 10 }}
+        >
+          <MaterialIcons name="location-on" size={30} color="#fd5c63" />
+          <View>
+            <Text style={{ fontSize: 18, fontWeight: "600" }}>Home</Text>
+            <Text>{displayCurrentAddress}</Text>
+          </View>
+
+          <Pressable onPress={() => navigation.navigate("Profile")} style={{ marginLeft: "auto", marginRight: 7 }}>
+            <Image
+              style={{ width: 40, height: 40, borderRadius: 20 }}
+              source={{
+                uri: "https://lh3.googleusercontent.com/ogw/AAEL6sh_yqHq38z35QMy5Fnb8ZIxicdxCIVM9PeBD2j-=s64-c-mo",
+              }}
+            />
+          </Pressable>
+        </View>
+
+        {/* Search Bar */}
+        <View
+          style={{
+            padding: 10,
+            margin: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderWidth: 0.8,
+            borderColor: "#C0C0C0",
+            borderRadius: 7,
+          }}
+        >
+          <TextInput placeholder="Search for items or More" />
+          <Feather name="search" size={24} color="#fd5c63" />
+        </View>
+
+        {/* Image Carousel */}
+        <Carousel />
+
+        {/* Services Component */}
+        <Services />
+
+        {/* Render all the Products */}
+        {product.map((item, index) => (
+          <DressItem item={item} key={index} />
+        ))}
+      </ScrollView>
+
+          {total === 0 ? (
+            null
+          ) : (
+            <Pressable
+            style={{
+              backgroundColor: "#088F8F",
+              padding: 10,
+              marginBottom: 40,
+              margin: 15,
+              borderRadius: 7,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent:"space-between",
+            }}
+          >
+            <View>
+              <Text style={{fontSize:17,fontWeight:"600",color:"white"}}>{cart.length} items |  $ {total}</Text>
+              <Text style={{fontSize:15,fontWeight:"400",color:"white",marginVertical:6}}>extra charges might apply</Text>
+            </View>
+    
+            <Pressable onPress={() => navigation.navigate("PickUp")}>
+              <Text style={{fontSize:17,fontWeight:"600",color:"white"}}>Proceed to pickup</Text>
+            </Pressable>
+          </Pressable>
+          )}
+     
+    </>
   )
 }
 
