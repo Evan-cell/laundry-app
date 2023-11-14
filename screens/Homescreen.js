@@ -3,6 +3,7 @@ import React,{useEffect,useState} from 'react'
 import * as Location from 'expo-location'
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import Carousel from "../components/Carousel";
 const Homescreen = () => {
     const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
         "we are loading your location"
