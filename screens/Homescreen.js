@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View, Alert,ScrollView ,Pressable,Image,TextInput,} from 'react-native'
+import { StyleSheet, Text, View, Alert,ScrollView ,Pressable,Image,TextInput,SafeAreaView} from 'react-native'
 import React,{useEffect,useState} from 'react'
 import * as Location from 'expo-location'
 import { MaterialIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import Carousel from "../components/Carousel";
+import Services from "../components/Services";
+import DressItem from "../components/DressItem";
 const Homescreen = () => {
     const [displayCurrentAddress, setdisplayCurrentAddress] = useState(
         "we are loading your location"
@@ -65,10 +67,61 @@ const Homescreen = () => {
               }
           }
       }
+      const services = [
+        {
+          id: "0",
+          image: "https://cdn-icons-png.flaticon.com/128/4643/4643574.png",
+          name: "shirt",
+          quantity: 0,
+          price: 10,
+        },
+        {
+          id: "11",
+          image: "https://cdn-icons-png.flaticon.com/128/892/892458.png",
+          name: "T-shirt",
+          quantity: 0,
+          price: 10,
+        },
+        {
+          id: "12",
+          image: "https://cdn-icons-png.flaticon.com/128/9609/9609161.png",
+          name: "dresses",
+          quantity: 0,
+          price: 10,
+        },
+        {
+          id: "13",
+          image: "https://cdn-icons-png.flaticon.com/128/599/599388.png",
+          name: "jeans",
+          quantity: 0,
+          price: 10,
+        },
+        {
+          id: "14",
+          image: "https://cdn-icons-png.flaticon.com/128/9431/9431166.png",
+          name: "Sweater",
+          quantity: 0,
+          price: 10,
+        },
+        {
+          id: "15",
+          image: "https://cdn-icons-png.flaticon.com/128/3345/3345397.png",
+          name: "shorts",
+          quantity: 0,
+          price: 10,
+        },
+        {
+          id: "16",
+          image: "https://cdn-icons-png.flaticon.com/128/293/293241.png",
+          name: "Sleeveless",
+          quantity: 0,
+          price: 10,
+        },
+      ];
   return (
     <>
       <ScrollView
-        style={{ backgroundColor: "#F0F0F0", flex: 1, marginTop: 50 }}
+        style={{ backgroundColor: "#F0F0F0",  marginTop: 50 }}
       >
         {/* Location and Profile */}
         <View
@@ -109,19 +162,25 @@ const Homescreen = () => {
 
         {/* Image Carousel */}
         <Carousel />
+                {/* Render all the Products */}
+        {services.map((item,index)=>{
+            <DressItem item={item} key={index}/>
+        })}
 
         {/* Services Component */}
         <Services />
 
+
         {/* Render all the Products */}
-        {product.map((item, index) => (
+        {services.map((item, index) => (
           <DressItem item={item} key={index} />
         ))}
+        
+ 
+        
       </ScrollView>
 
-          {total === 0 ? (
-            null
-          ) : (
+{/*      
             <Pressable
             style={{
               backgroundColor: "#088F8F",
@@ -135,15 +194,15 @@ const Homescreen = () => {
             }}
           >
             <View>
-              <Text style={{fontSize:17,fontWeight:"600",color:"white"}}>{cart.length} items |  $ {total}</Text>
+              <Text style={{fontSize:17,fontWeight:"600",color:"white"}}>50</Text>
               <Text style={{fontSize:15,fontWeight:"400",color:"white",marginVertical:6}}>extra charges might apply</Text>
             </View>
     
-            <Pressable onPress={() => navigation.navigate("PickUp")}>
+            <Pressable >
               <Text style={{fontSize:17,fontWeight:"600",color:"white"}}>Proceed to pickup</Text>
             </Pressable>
-          </Pressable>
-          )}
+          </Pressable> */}
+         
      
     </>
   )
